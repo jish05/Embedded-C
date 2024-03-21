@@ -1,0 +1,20 @@
+#include<pic18.h>
+
+void main(void)
+{
+  TRISA = 1;
+  TRISC = 0;
+  ADRESH = 0;
+  ADRESL = 0;
+  ADCON0 = 0x40;
+  ADCON1 = 0x80;
+  while(1)
+  {
+    Delay(1);
+    ADCON0bits.ADON = 1;
+    ADCON0bits.GO = 1;
+    while(ADCON0bits.DONE == 1);
+    PORTC = ADRESH;
+    Delay(250);
+  }
+}
